@@ -2,18 +2,24 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"go-patient-history/config"
 	services "go-patient-history/internal/services/patients"
 	"go-patient-history/libs/common/response"
 	"net/http"
+	"strconv"
 )
 
 type PatientsControllerImpl struct {
 	patientsService services.PatientsService
+	Config          config.Config
 }
 
-func InjectTagsController(service services.PatientsService) PatientController {
+func InjectPatientsController(service services.PatientsService) PatientsController {
+	cfg := config.ConfigLoad()
+
 	return &PatientsControllerImpl{
 		patientsService: service,
+		Config:          *cfg,
 	}
 }
 
@@ -25,7 +31,7 @@ func (controller PatientsControllerImpl) Create(ctx *gin.Context) {
 
 	webResponse := response.Response{
 		Status:  http.StatusCreated,
-		Message: "Tag Created Successfully",
+		Message: "Patient Created Successfully",
 		Data:    tagCreateData,
 	}
 	webResponse.ActionSucceeded(ctx)
@@ -64,21 +70,37 @@ func (controller PatientsControllerImpl) FindById(ctx *gin.Context) {
 	}
 
 	webResponse := response.Response{
-		Message: "Tag Single Find",
+		Message: "Patient Single Find",
 		Data:    tagResponse,
 	}
 	webResponse.ActionSucceeded(ctx)
 }
 
 func (controller PatientsControllerImpl) FindAll(ctx *gin.Context) {
-	tagResponseAll, err := controller.patientsService.FindAll(ctx)
+	page := ctx.Query("page")
+	perPage := ctx.Query("perPage")
+	nameFilter := ctx.Query("name")
+	surnameFilter := ctx.Query("surname")
+	patronymicFilter := ctx.Query("patronymic")
+
+	pageInt, err := strconv.Atoi(page)
+	if err != nil {
+		pageInt = 1
+	}
+
+	perPageInt, err := strconv.Atoi(perPage)
+	if err != nil {
+		perPageInt = 10
+	}
+
+	patientResponseAll, err := controller.patientsService.FindAll(ctx, pageInt, perPageInt, nameFilter, surnameFilter, patronymicFilter)
 	if err != nil {
 		return
 	}
 
 	webResponse := response.Response{
 		Message: "Patients All Find",
-		Data:    tagResponseAll,
+		Data:    patientResponseAll,
 	}
 	webResponse.ActionSucceeded(ctx)
 }

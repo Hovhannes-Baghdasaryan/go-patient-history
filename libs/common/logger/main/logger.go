@@ -1,9 +1,9 @@
 package logger
 
 import (
-	"crud-go-api/config"
-	"crud-go-api/libs/common/constant/environment"
-	"crud-go-api/libs/common/logger/slogpretty"
+	"go-patient-history/config"
+	"go-patient-history/libs/common/constant/environment"
+	"go-patient-history/libs/common/logger/slogpretty"
 	"log/slog"
 	"os"
 )
@@ -38,4 +38,9 @@ func LogError(loggerPayload LoggerPayload) {
 func LogInfo(loggerPayload LoggerPayload) {
 	log := SetupLogger()
 	log.Info("", slog.String("Function Name", loggerPayload.FuncName), slog.String("Message", loggerPayload.Message))
+}
+
+func LogDebug(loggerPayload LoggerPayload) {
+	log := SetupLogger()
+	log.Debug("", slog.String("Function Name", loggerPayload.FuncName), slog.String("Message", loggerPayload.Message))
 }

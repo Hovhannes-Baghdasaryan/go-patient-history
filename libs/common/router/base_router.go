@@ -1,8 +1,8 @@
 package common
 
 import (
-	"crud-go-api/libs/common/logger/middleware"
 	"github.com/gin-gonic/gin"
+	"go-patient-history/libs/common/logger/middleware"
 )
 
 func BaseRouter() *gin.Engine {

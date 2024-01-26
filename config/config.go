@@ -15,6 +15,8 @@ type Config struct {
 
 type HTTPServer struct {
 	Address string `yaml:"address" env-default:"localhost:8080"`
+	PerPage string `yaml:"per_page" env-default:"10"`
+	Page    string `yaml:"page" env-default:"1"`
 }
 
 func ConfigLoad() *Config {

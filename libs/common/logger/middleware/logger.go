@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	logger "crud-go-api/libs/common/logger/main"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	logger "go-patient-history/libs/common/logger/main"
 	"time"
 )
 

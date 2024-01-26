@@ -3,26 +3,30 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"go-patient-history/ent"
+	controller "go-patient-history/internal/controller/patients"
+	services "go-patient-history/internal/services/patients"
+	repository "go-patient-history/libs/data-layer/repository/patients"
 )
 
-func InjectTagRouter(router *gin.Engine, clientDB *ent.Client) **gin.Engine {
+func InjectPatientRouter(router *gin.Engine, clientDB *ent.Client) **gin.Engine {
 	// Repo
-	tagRepository := repository.InjectTagsRepositoryImpl(clientDB)
+	patientRepository := repository.InjectPatientsRepositoryImpl(clientDB)
 
 	// Service
 	validate := validator.New()
-	tagService := services.InjectTagsServiceImpl(tagRepository, validate)
+	patientService := services.InjectPatientsServiceImpl(patientRepository, validate)
 
 	// Controller
-	tagController := controller.InjectTagsController(tagService)
+	patientController := controller.InjectPatientsController(patientService)
 
-	tagsRouter := router.Group("v1/tags")
+	patientsRouter := router.Group("v1/patients")
 	{
-		tagsRouter.GET("", tagController.FindAll)
-		tagsRouter.GET("/:tagId", tagController.FindById)
-		tagsRouter.POST("", tagController.Create)
-		tagsRouter.PATCH("/:tagId", tagController.Update)
-		tagsRouter.DELETE("/:tagId", tagController.Delete)
+		patientsRouter.GET("", patientController.FindAll)
+		patientsRouter.GET("/:patientId", patientController.FindById)
+		patientsRouter.POST("", patientController.Create)
+		patientsRouter.PATCH("/:patientId", patientController.Update)
+		patientsRouter.DELETE("/:patientId", patientController.Delete)
 	}
 
 	return &router

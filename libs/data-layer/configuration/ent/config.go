@@ -2,12 +2,12 @@ package configuration
 
 import (
 	"context"
-	constant "crud-go-api/libs/common/constant/logger"
-	logger "crud-go-api/libs/common/logger/main"
-	"crud-go-api/libs/data-layer/entity/tags/ent"
-	"crud-go-api/libs/data-layer/entity/tags/ent/migrate"
 	"fmt"
 	_ "github.com/lib/pq"
+	"go-patient-history/ent"
+	"go-patient-history/ent/migrate"
+	constant "go-patient-history/libs/common/constant/logger"
+	logger "go-patient-history/libs/common/logger/main"
 	"os"
 	"strconv"
 )
@@ -23,7 +23,6 @@ func DatabaseConnection() *ent.Client {
 	portParse, err := strconv.Atoi(port)
 
 	client, err := ent.Open("postgres", fmt.Sprintf("host=%s port=%d user=%s dbname=%s password=%s", host, portParse, user, dbName, password))
-
 	if err != nil {
 		logger.LogError(logger.LoggerPayload{FuncName: constant.DatabaseConfiguration, Message: fmt.Sprintf("Failed Opening Connection: %#v", err.Error())})
 		client.Close()
@@ -38,6 +37,8 @@ func DatabaseConnection() *ent.Client {
 		logger.LogError(logger.LoggerPayload{FuncName: constant.DatabaseConfiguration, Message: fmt.Sprintf("Failed Creating Schema Resources: %v", err)})
 		client.Close()
 	}
+
+	logger.LogDebug(logger.LoggerPayload{FuncName: constant.DatabaseConfiguration, Message: "Database connection successful"})
 
 	return client
 }

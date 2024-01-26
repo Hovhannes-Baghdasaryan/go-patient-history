@@ -5,12 +5,20 @@ import (
 	"github.com/google/uuid"
 	"go-patient-history/ent"
 	converter "go-patient-history/internal/converter/request"
+	repository "go-patient-history/libs/common/repository/ent/pagination"
 )
 
 type PatientsRepository interface {
-	Save(tags converter.CreatePatientRequest, ctx *gin.Context) (*ent.PatientEntity, error)
-	Update(updatePayload converter.UpdatePatientRequest, ctx *gin.Context) (uuid.UUID, error)
-	Delete(tagId uuid.UUID, ctx *gin.Context) (uuid.UUID, error)
-	FindById(tagId uuid.UUID, ctx *gin.Context) (*ent.PatientEntity, error)
-	FindAll() ([]*ent.PatientEntity, error)
+	Save(createPatient converter.CreatePatientRequest, patientProviderData PatientProviderData, ctx *gin.Context) (*ent.PatientEntity, error)
+	Update(ctx *gin.Context, updatePayload converter.UpdatePatientRequest) (*ent.PatientEntity, error)
+	UpdateWithProviderData(ctx *gin.Context, updatePayload converter.UpdatePatientRequest, providerData PatientProviderData) (*ent.PatientEntity, error)
+	Delete(patientId uuid.UUID, ctx *gin.Context) error
+	FindById(patientId uuid.UUID, ctx *gin.Context) (*ent.PatientEntity, error)
+	FindAll(ctx *gin.Context, page int, perPage int, nameFilter string, surnameFilter string, patronymicFilter string) (repository.PaginatedOutputResponse[[]*ent.PatientEntity], error)
+}
+
+type PatientProviderData struct {
+	Age     *int    `json:"age,omitempty"`
+	Country string  `json:"country,omitempty"`
+	Gender  *string `json:"gender,omitempty"`
 }

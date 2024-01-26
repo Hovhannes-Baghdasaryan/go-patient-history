@@ -15,14 +15,14 @@ import (
 func main() {
 	cfg := config.ConfigLoad()
 
-	logger.LogInfo(logger.LoggerPayload{Message: slog.String("env", cfg.Env).String(), FuncName: constant.MainBoostrap})
+	logger.LogDebug(logger.LoggerPayload{Message: slog.String("env", cfg.Env).String(), FuncName: constant.MainBoostrap})
 
 	clientDB := configuration.DatabaseConnection()
 
 	baseRoute := common.BaseRouter()
 	routes := router.InjectPatientRouter(baseRoute, clientDB)
 
-	logger.LogInfo(logger.LoggerPayload{FuncName: constant.MainBoostrap, Message: fmt.Sprintf("Starting Server %s", slog.String("address", cfg.Address))})
+	logger.LogDebug(logger.LoggerPayload{FuncName: constant.MainBoostrap, Message: fmt.Sprintf("Starting Server %s", slog.String("address", cfg.Address))})
 
 	server := &http.Server{
 		Addr:    cfg.Address,
@@ -30,6 +30,6 @@ func main() {
 	}
 
 	if err := server.ListenAndServe(); err != nil {
-		logger.LogInfo(logger.LoggerPayload{FuncName: constant.MainBoostrap, Message: fmt.Sprintf("Starting Server %#v", err)})
+		logger.LogError(logger.LoggerPayload{FuncName: constant.MainBoostrap, Message: fmt.Sprintf("Starting Server %#v", err)})
 	}
 }
