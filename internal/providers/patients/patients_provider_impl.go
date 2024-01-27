@@ -19,7 +19,6 @@ func (provider PatientProviderImpl) GetAge(name string) (GetAgeResponse, error) 
 
 	response, err := http.Get(url)
 	if err != nil {
-
 		logger.LogError(logger.LoggerPayload{FuncName: logconstant.GetPatientAgeProvider, Message: err.Error()})
 		return GetAgeResponse{}, errors.New(constant.GetPatientAgeProviderRequest)
 	}
@@ -35,6 +34,8 @@ func (provider PatientProviderImpl) GetAge(name string) (GetAgeResponse, error) 
 		logger.LogError(logger.LoggerPayload{FuncName: logconstant.GetPatientAgeProvider, Message: constant.AgeWithGivenNameNotExist})
 		return GetAgeResponse{}, errors.New(constant.AgeWithGivenNameNotExist)
 	}
+
+	logger.LogDebug(logger.LoggerPayload{FuncName: logconstant.GetPatientAgeProvider, Message: "Successfully fetched age Response"})
 
 	return GetAgeResponse{
 		Age:   finalResponse.Age,
@@ -63,6 +64,8 @@ func (provider PatientProviderImpl) GetGender(name string) (GetGenderResponse, e
 		logger.LogError(logger.LoggerPayload{FuncName: logconstant.GetPatientGenderProvider, Message: constant.GenderWithGivenNameNotExist})
 		return GetGenderResponse{}, errors.New(constant.GenderWithGivenNameNotExist)
 	}
+
+	logger.LogDebug(logger.LoggerPayload{FuncName: logconstant.GetPatientGenderProvider, Message: "Successfully fetched gender Response"})
 
 	return GetGenderResponse{
 		Name:        finalResponse.Name,
@@ -101,6 +104,8 @@ func (provider PatientProviderImpl) GetCountry(name string) (GetCountryResponse[
 			mostLikelyCountryProbability = country.Probability
 		}
 	}
+
+	logger.LogDebug(logger.LoggerPayload{FuncName: logconstant.GetPatientCountryProvider, Message: "Successfully fetched gender Response"})
 
 	return GetCountryResponse[string]{
 		Country: mostLikelyCountry,

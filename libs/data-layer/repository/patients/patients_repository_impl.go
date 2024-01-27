@@ -13,12 +13,11 @@ import (
 	logconstant "go-patient-history/libs/common/constant/logger"
 	"go-patient-history/libs/common/exception"
 	logger "go-patient-history/libs/common/logger/main"
-	"go-patient-history/libs/common/repository/ent/pagination"
+	"go-patient-history/libs/common/response"
 )
 
 type PatientsRepositoryImpl struct {
-	clientDB       *ent.Client
-	baseRepository repository.BaseRepositoryImpl[[]*ent.PatientEntity, ent.PatientEntityClient, []predicate.PatientEntity]
+	clientDB *ent.Client
 }
 
 func InjectPatientsRepositoryImpl(clientDB *ent.Client) *PatientsRepositoryImpl {
@@ -116,11 +115,39 @@ func (repo *PatientsRepositoryImpl) FindById(PatientId uuid.UUID, ctx *gin.Conte
 	return result, nil
 }
 
-func (repo *PatientsRepositoryImpl) FindAll(ctx *gin.Context, page int, perPage int, nameFilter string, surnameFilter string, patronymicFilter string) (repository.PaginatedOutputResponse[[]*ent.PatientEntity], error) {
-	paginatedResult, err := repo.baseRepository.FindPaginated(ctx, *repo.clientDB.PatientEntity, page, perPage, []predicate.PatientEntity{patiententity.NameContainsFold(nameFilter), patiententity.SurnameContainsFold(surnameFilter), patiententity.PatronymicContainsFold(patronymicFilter)})
+func (repo *PatientsRepositoryImpl) FindAll(ctx *gin.Context, page int, perPage int, nameFilter string, surnameFilter string, patronymicFilter string) (response.PaginatedOutputResponse[[]*ent.PatientEntity], error) {
+	skipPages := (page - 1) * perPage
+
+	whereOption := []predicate.PatientEntity{patiententity.NameContainsFold(nameFilter), patiententity.SurnameContainsFold(surnameFilter), patiententity.PatronymicContainsFold(patronymicFilter)}
+
+	// get all count for total items
+	patientFullPagesCount, err := repo.clientDB.PatientEntity.Query().Where(whereOption...).Count(context.Background())
 	if err != nil {
-		return repository.PaginatedOutputResponse[[]*ent.PatientEntity]{}, err
+		logger.LogError(logger.LoggerPayload{FuncName: logconstant.FindAllPatientsRepository, Message: err.Error()})
+		webError := exception.Error{
+			Message: errors.New(errconstant.DBInternalError).Error(),
+		}
+		webError.InternalException(ctx)
+		return response.PaginatedOutputResponse[[]*ent.PatientEntity]{}, errors.New(errconstant.DBInternalError)
 	}
 
-	return paginatedResult, nil
+	// (Field)ContainsFold is for filtering not case-sensitive
+	result, err := repo.clientDB.PatientEntity.Query().Offset(skipPages).Limit(perPage).Where(whereOption...).All(context.Background())
+	if err != nil {
+		logger.LogError(logger.LoggerPayload{FuncName: logconstant.FindAllPatientsRepository, Message: err.Error()})
+		webError := exception.Error{
+			Message: errors.New(errconstant.DBInternalError).Error(),
+		}
+		webError.InternalException(ctx)
+		return response.PaginatedOutputResponse[[]*ent.PatientEntity]{}, errors.New(errconstant.DBInternalError)
+	}
+
+	return response.PaginatedOutputResponse[[]*ent.PatientEntity]{
+		Pagination: response.Pagination{
+			Page:    page,
+			PerPage: perPage,
+			Total:   patientFullPagesCount,
+		},
+		Items: result,
+	}, nil
 }

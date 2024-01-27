@@ -1,10 +1,7 @@
 package constant
 
 const (
-	CreatePatientsService   = "CREATE_PATIENTS_SERVICE"
-	UpdatePatientsService   = "UPDATE_PATIENTS_SERVICE"
-	DeletePatientsService   = "DELETE_PATIENTS_SERVICE"
-	FindByIdPatientsService = "FIND_ID_PATIENTS_SERVICE"
+	CreatePatientsService = "CREATE_PATIENTS_SERVICE"
 )
 
 const (
@@ -14,6 +11,13 @@ const (
 	DeletePatientsRepository         = "DELETE_PATIENTS_REPOSITORY"
 	FindAllPatientsRepository        = "FIND_ALL_PATIENTS_REPOSITORY"
 	FindByIdPatientsRepository       = "FIND_ID_PATIENTS_REPOSITORY"
+)
+
+const (
+	DeletePatientsController   = "DELETE_PATIENTS_CONTROLLER"
+	CreatePatientsController   = "CREATE_PATIENTS_CONTROLLER"
+	FindByIdPatientsController = "FIND_ID_PATIENTS_CONTROLLER"
+	UpdatePatientsController   = "UPDATE_PATIENTS_CONTROLLER"
 )
 
 const (

@@ -24,7 +24,6 @@ func DatabaseConnection() *ent.Client {
 		logger.LogError(logger.LoggerPayload{FuncName: logconstant.DatabaseConfiguration, Message: fmt.Sprintf("Failed Opening Connection: %#v", err.Error())})
 		return nil
 	}
-	defer drv.Close()
 
 	newDir, err := atlas.NewLocalDir(envconstant.MigrationDir)
 	if err != nil {

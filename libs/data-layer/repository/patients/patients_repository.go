@@ -5,7 +5,7 @@ import (
 	"github.com/google/uuid"
 	"go-patient-history/ent"
 	converter "go-patient-history/internal/converter/request"
-	repository "go-patient-history/libs/common/repository/ent/pagination"
+	"go-patient-history/libs/common/response"
 )
 
 type PatientsRepository interface {
@@ -14,7 +14,7 @@ type PatientsRepository interface {
 	UpdateWithProviderData(ctx *gin.Context, updatePayload converter.UpdatePatientRequest, providerData PatientProviderData) (*ent.PatientEntity, error)
 	Delete(patientId uuid.UUID, ctx *gin.Context) error
 	FindById(patientId uuid.UUID, ctx *gin.Context) (*ent.PatientEntity, error)
-	FindAll(ctx *gin.Context, page int, perPage int, nameFilter string, surnameFilter string, patronymicFilter string) (repository.PaginatedOutputResponse[[]*ent.PatientEntity], error)
+	FindAll(ctx *gin.Context, page int, perPage int, nameFilter string, surnameFilter string, patronymicFilter string) (response.PaginatedOutputResponse[[]*ent.PatientEntity], error)
 }
 
 type PatientProviderData struct {

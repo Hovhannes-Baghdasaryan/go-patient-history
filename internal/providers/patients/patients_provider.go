@@ -1,5 +1,11 @@
 package providers
 
+const (
+	Age     = "age"
+	Gender  = "gender"
+	Country = "country"
+)
+
 type PatientsProvider interface {
 	GetAge(name string) int
 	GetGender(name string) string
