@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	mainconfig "go-patient-history/config/main"
+	_ "go-patient-history/docs"
 	router "go-patient-history/internal/router/patient"
 	constant "go-patient-history/libs/common/constant/logger"
 	logger "go-patient-history/libs/common/logger/main"
@@ -12,6 +13,12 @@ import (
 	"net/http"
 )
 
+// @title 				Patient Service API
+// @version				1.0
+// @description 		Patient service API we predicting patient data by name
+
+// @host 				localhost:8080
+// @BasePath			/v1
 func main() {
 	cfg := mainconfig.MainConfigLoad()
 

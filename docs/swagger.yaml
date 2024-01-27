@@ -1,0 +1,283 @@
+basePath: /v1
+definitions:
+  controller.CreateSinglePatientOutputResponse:
+    properties:
+      age:
+        type: integer
+      country:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  controller.DeleteSinglePatientOutputResponse:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  controller.GetAllPatientsOutputResponse:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/response.PatientOutputResponse'
+        type: array
+      pagination:
+        $ref: '#/definitions/response.Pagination'
+    type: object
+  controller.GetSinglePatientOutputResponse:
+    properties:
+      age:
+        type: integer
+      country:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  controller.UpdateSinglePatientOutputResponse:
+    properties:
+      age:
+        type: integer
+      country:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  converter.CreatePatientRequest:
+    properties:
+      name:
+        maxLength: 15
+        minLength: 2
+        type: string
+      patronymic:
+        maxLength: 15
+        minLength: 2
+        type: string
+      surname:
+        maxLength: 15
+        minLength: 2
+        type: string
+    required:
+    - name
+    - surname
+    type: object
+  converter.UpdatePatientRequest:
+    properties:
+      id:
+        type: string
+      name:
+        maxLength: 200
+        minLength: 2
+        type: string
+      patronymic:
+        maxLength: 15
+        minLength: 2
+        type: string
+      surname:
+        maxLength: 200
+        minLength: 2
+        type: string
+    type: object
+  response.Pagination:
+    properties:
+      page:
+        type: integer
+      perPage:
+        type: integer
+      total:
+        type: integer
+    type: object
+  response.PatientOutputResponse:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  response.Response-controller_CreateSinglePatientOutputResponse:
+    properties:
+      data:
+        $ref: '#/definitions/controller.CreateSinglePatientOutputResponse'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  response.Response-controller_DeleteSinglePatientOutputResponse:
+    properties:
+      data:
+        $ref: '#/definitions/controller.DeleteSinglePatientOutputResponse'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  response.Response-controller_GetAllPatientsOutputResponse:
+    properties:
+      data:
+        $ref: '#/definitions/controller.GetAllPatientsOutputResponse'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  response.Response-controller_GetSinglePatientOutputResponse:
+    properties:
+      data:
+        $ref: '#/definitions/controller.GetSinglePatientOutputResponse'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  response.Response-controller_UpdateSinglePatientOutputResponse:
+    properties:
+      data:
+        $ref: '#/definitions/controller.UpdateSinglePatientOutputResponse'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Patient service API we predicting patient data by name
+  title: Patient Service API
+  version: "1.0"
+paths:
+  /patients:
+    get:
+      parameters:
+      - description: Name filter
+        in: query
+        name: name
+        type: string
+      - description: Surname filter
+        in: query
+        name: surname
+        type: string
+      - description: Patronymic filter
+        in: query
+        name: patronymic
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response-controller_GetAllPatientsOutputResponse'
+      summary: Get All Patients
+      tags:
+      - Patients
+    post:
+      description: Save Patiens and predict data by name
+      parameters:
+      - description: Create Patient
+        in: body
+        name: patient
+        required: true
+        schema:
+          $ref: '#/definitions/converter.CreatePatientRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response-controller_CreateSinglePatientOutputResponse'
+      summary: Create Patient
+      tags:
+      - Patients
+  /patients/{patientId}:
+    delete:
+      parameters:
+      - description: delete patient by id
+        in: path
+        name: patientId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response-controller_DeleteSinglePatientOutputResponse'
+      summary: Delete Patient
+      tags:
+      - Patients
+    get:
+      parameters:
+      - description: get patient by id
+        in: path
+        name: patientId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response-controller_GetSinglePatientOutputResponse'
+      summary: Get Patient
+      tags:
+      - Patients
+    patch:
+      parameters:
+      - description: update patient by id
+        in: path
+        name: patientId
+        required: true
+        type: string
+      - description: Create Patient
+        in: body
+        name: patient
+        required: true
+        schema:
+          $ref: '#/definitions/converter.UpdatePatientRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response-controller_UpdateSinglePatientOutputResponse'
+      summary: Update Patient
+      tags:
+      - Patients
+swagger: "2.0"

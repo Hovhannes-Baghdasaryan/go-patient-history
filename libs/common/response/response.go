@@ -11,10 +11,10 @@ type Pagination struct {
 	PerPage int `json:"perPage"`
 }
 
-type Response struct {
-	Status  int         `json:"status"`
-	Message string      `json:"message,def"`
-	Data    interface{} `json:"data,omitempty"`
+type Response[T interface{}] struct {
+	Status  int    `json:"status"`
+	Message string `json:"message,def"`
+	Data    T      `json:"data,omitempty"`
 }
 
 type PaginatedOutputResponse[T interface{}] struct {
@@ -22,7 +22,7 @@ type PaginatedOutputResponse[T interface{}] struct {
 	Items      T `json:"items"`
 }
 
-func (r *Response) ActionSucceeded(ctx *gin.Context) {
+func (r *Response[T]) ActionSucceeded(ctx *gin.Context) {
 	message := r.Message
 	if message == "" {
 		message = "Action Succeeded"
@@ -33,7 +33,7 @@ func (r *Response) ActionSucceeded(ctx *gin.Context) {
 		status = http.StatusOK
 	}
 
-	webResponse := Response{
+	webResponse := Response[T]{
 		Status:  status,
 		Message: message,
 		Data:    r.Data,

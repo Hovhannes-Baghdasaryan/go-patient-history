@@ -10,10 +10,10 @@ import (
 )
 
 type PatientsService interface {
-	Create(ctx *gin.Context, createPatientRequest converter.CreatePatientRequest) (resconverter.PatientSingleResponse, error)
+	Create(ctx *gin.Context, createPatientRequest converter.CreatePatientRequest) (*resconverter.PatientSingleResponse, error)
 	Update(ctx *gin.Context, updatePatientRequest converter.UpdatePatientRequest) (*resconverter.PatientSingleResponse, error)
-	Delete(ctx *gin.Context, parsedUUId uuid.UUID) (resconverter.PatientOutputResponse, error)
-	FindById(ctx *gin.Context, parsedUUId uuid.UUID) (resconverter.PatientSingleResponse, error)
-	FindAll(ctx *gin.Context, page int, perPage int, nameFilter string, surnameFilter string, patronymicFilter string) (response.PaginatedOutputResponse[[]resconverter.PatientOutputResponse], error)
-	getPatientProviderData(ctx *gin.Context, patientPredictName string) (repository.PatientProviderData, error)
+	Delete(ctx *gin.Context, parsedUUId uuid.UUID) (*resconverter.PatientOutputResponse, error)
+	FindById(ctx *gin.Context, parsedUUId uuid.UUID) (*resconverter.PatientSingleResponse, error)
+	FindAll(ctx *gin.Context, page int, perPage int, nameFilter string, surnameFilter string, patronymicFilter string) (*response.PaginatedOutputResponse[[]resconverter.PatientOutputResponse], error)
+	getPatientProviderData(patientPredictName string) (*repository.PatientProviderData, error)
 }

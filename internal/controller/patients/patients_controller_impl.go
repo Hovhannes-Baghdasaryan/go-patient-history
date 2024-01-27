@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-patient-history/config/main"
 	reqconvert "go-patient-history/internal/converter/request"
+	outputresponse "go-patient-history/internal/converter/response"
 	services "go-patient-history/internal/services/patients"
 	logconstant "go-patient-history/libs/common/constant/logger"
 	"go-patient-history/libs/common/exception"
@@ -28,6 +29,14 @@ func InjectPatientsController(service services.PatientsService) PatientsControll
 	}
 }
 
+// CreatePatient		godoc
+// @Summary				Create Patient
+// @Description			Save Patiens and predict data by name
+// @Param				patient body reqconvert.CreatePatientRequest true "Create Patient"
+// @Produce				application/json
+// @Tags				Patients
+// @Success				200 {object} response.Response[CreateSinglePatientOutputResponse]
+// @Router				/patients [post]
 func (controller PatientsControllerImpl) Create(ctx *gin.Context) {
 	createPatientsRequest := reqconvert.CreatePatientRequest{}
 	err := ctx.ShouldBindJSON(&createPatientsRequest)
@@ -40,19 +49,27 @@ func (controller PatientsControllerImpl) Create(ctx *gin.Context) {
 		return
 	}
 
-	tagCreateData, err := controller.patientsService.Create(ctx, createPatientsRequest)
+	patientCreateData, err := controller.patientsService.Create(ctx, createPatientsRequest)
 	if err != nil {
 		return
 	}
 
-	webResponse := response.Response{
+	webResponse := response.Response[*outputresponse.PatientSingleResponse]{
 		Status:  http.StatusCreated,
 		Message: "Patient Created Successfully",
-		Data:    tagCreateData,
+		Data:    patientCreateData,
 	}
 	webResponse.ActionSucceeded(ctx)
 }
 
+// UpdatePatient		godoc
+// @Summary				Update Patient
+// @Param				patientId path string true "update patient by id"
+// @Param				patient body reqconvert.UpdatePatientRequest true "Create Patient"
+// @Produce				application/json
+// @Tags				Patients
+// @Success				200 {object} response.Response[UpdateSinglePatientOutputResponse]
+// @Router				/patients/{patientId} [patch]
 func (controller PatientsControllerImpl) Update(ctx *gin.Context) {
 	updatePatientRequest := reqconvert.UpdatePatientRequest{}
 	err := ctx.ShouldBindJSON(&updatePatientRequest)
@@ -77,18 +94,25 @@ func (controller PatientsControllerImpl) Update(ctx *gin.Context) {
 	}
 	updatePatientRequest.Id = parsedUUID
 
-	updatedTagId, err := controller.patientsService.Update(ctx, updatePatientRequest)
+	updatedPatient, err := controller.patientsService.Update(ctx, updatePatientRequest)
 	if err != nil {
 		return
 	}
 
-	webResponse := response.Response{
+	webResponse := response.Response[UpdateSinglePatientOutputResponse]{
 		Message: "Updated Successfully",
-		Data:    updatedTagId,
+		Data:    updatedPatient,
 	}
 	webResponse.ActionSucceeded(ctx)
 }
 
+// DeletePatient		godoc
+// @Summary				Delete Patient
+// @Param				patientId path string true "delete patient by id"
+// @Produce				application/json
+// @Tags				Patients
+// @Success				200 {object} response.Response[DeleteSinglePatientOutputResponse]
+// @Router				/patients/{patientId} [delete]
 func (controller PatientsControllerImpl) Delete(ctx *gin.Context) {
 	patientId := ctx.Param("patientId")
 	uuidParse, err := helper.IsValidUUID(patientId)
@@ -106,13 +130,20 @@ func (controller PatientsControllerImpl) Delete(ctx *gin.Context) {
 		return
 	}
 
-	webResponse := response.Response{
+	webResponse := response.Response[DeleteSinglePatientOutputResponse]{
 		Message: "Deleted successfully",
 		Data:    resData,
 	}
 	webResponse.ActionSucceeded(ctx)
 }
 
+// GetPatient			godoc
+// @Summary				Get Patient
+// @Param				patientId path string true "get patient by id"
+// @Produce				application/json
+// @Tags				Patients
+// @Success				200 {object} response.Response[GetSinglePatientOutputResponse]
+// @Router				/patients/{patientId} [get]
 func (controller PatientsControllerImpl) FindById(ctx *gin.Context) {
 	patientId := ctx.Param("patientId")
 
@@ -131,13 +162,22 @@ func (controller PatientsControllerImpl) FindById(ctx *gin.Context) {
 		return
 	}
 
-	webResponse := response.Response{
+	webResponse := response.Response[GetSinglePatientOutputResponse]{
 		Message: "Patient Single Find",
 		Data:    tagResponse,
 	}
 	webResponse.ActionSucceeded(ctx)
 }
 
+// GetAllPatient		godoc
+// @Summary				Get All Patients
+// @Produce				application/json
+// @Param 				name query string false "Name filter"
+// @Param 				surname query string false "Surname filter"
+// @Param 				patronymic query string false "Patronymic filter"
+// @Tags				Patients
+// @Success				200 {object} response.Response[GetAllPatientsOutputResponse]
+// @Router				/patients [get]
 func (controller PatientsControllerImpl) FindAll(ctx *gin.Context) {
 	page := ctx.Query("page")
 	perPage := ctx.Query("perPage")
@@ -160,7 +200,7 @@ func (controller PatientsControllerImpl) FindAll(ctx *gin.Context) {
 		return
 	}
 
-	webResponse := response.Response{
+	webResponse := response.Response[GetAllPatientsOutputResponse]{
 		Message: "Patients All Find",
 		Data:    patientResponseAll,
 	}
