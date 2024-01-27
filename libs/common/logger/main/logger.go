@@ -1,8 +1,8 @@
 package logger
 
 import (
-	"go-patient-history/config"
-	"go-patient-history/libs/common/constant/environment"
+	config "go-patient-history/config/main"
+	envconstant "go-patient-history/libs/common/constant/environment"
 	"go-patient-history/libs/common/logger/slogpretty"
 	"log/slog"
 	"os"
@@ -14,16 +14,16 @@ type LoggerPayload struct {
 }
 
 func SetupLogger() *slog.Logger {
-	cfg := config.ConfigLoad()
+	cfg := config.MainConfigLoad()
 
 	var log *slog.Logger
 
 	switch cfg.Env {
-	case environment.EnvLocal:
+	case envconstant.EnvLocal:
 		log = slogpretty.SetupPrettySlog()
-	case environment.EnvDev:
+	case envconstant.EnvDev:
 		log = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
-	case environment.EnvProd:
+	case envconstant.EnvProd:
 		log = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
 	}
 
@@ -33,11 +33,6 @@ func SetupLogger() *slog.Logger {
 func LogError(loggerPayload LoggerPayload) {
 	log := SetupLogger()
 	log.Error("", slog.String("Function Name", loggerPayload.FuncName), slog.String("Message", loggerPayload.Message))
-}
-
-func LogInfo(loggerPayload LoggerPayload) {
-	log := SetupLogger()
-	log.Info("", slog.String("Function Name", loggerPayload.FuncName), slog.String("Message", loggerPayload.Message))
 }
 
 func LogDebug(loggerPayload LoggerPayload) {

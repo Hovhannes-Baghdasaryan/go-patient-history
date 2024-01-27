@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
-	"go-patient-history/config"
+	mainconfig "go-patient-history/config/main"
 	router "go-patient-history/internal/router/patient"
 	constant "go-patient-history/libs/common/constant/logger"
 	logger "go-patient-history/libs/common/logger/main"
 	common "go-patient-history/libs/common/router"
-	configuration "go-patient-history/libs/data-layer/configuration/ent"
+	configuration "go-patient-history/libs/data-layer/config/ent"
 	"log/slog"
 	"net/http"
 )
 
 func main() {
-	cfg := config.ConfigLoad()
+	cfg := mainconfig.MainConfigLoad()
 
 	logger.LogDebug(logger.LoggerPayload{Message: slog.String("env", cfg.Env).String(), FuncName: constant.MainBoostrap})
 

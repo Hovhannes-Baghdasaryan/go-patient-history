@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-patient-history/config"
+	"go-patient-history/config/main"
 	services "go-patient-history/internal/services/patients"
 	"go-patient-history/libs/common/response"
 	"net/http"
@@ -11,11 +11,11 @@ import (
 
 type PatientsControllerImpl struct {
 	patientsService services.PatientsService
-	Config          config.Config
+	Config          config.MainConfig
 }
 
 func InjectPatientsController(service services.PatientsService) PatientsController {
-	cfg := config.ConfigLoad()
+	cfg := config.MainConfigLoad()
 
 	return &PatientsControllerImpl{
 		patientsService: service,

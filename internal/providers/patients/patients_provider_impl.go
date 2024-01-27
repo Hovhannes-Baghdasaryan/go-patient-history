@@ -19,6 +19,7 @@ func (provider PatientProviderImpl) GetAge(name string) (GetAgeResponse, error) 
 
 	response, err := http.Get(url)
 	if err != nil {
+
 		logger.LogError(logger.LoggerPayload{FuncName: logconstant.GetPatientAgeProvider, Message: err.Error()})
 		return GetAgeResponse{}, errors.New(constant.GetPatientAgeProviderRequest)
 	}

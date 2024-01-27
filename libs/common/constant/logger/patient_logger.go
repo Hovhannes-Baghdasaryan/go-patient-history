@@ -4,7 +4,6 @@ const (
 	CreatePatientsService   = "CREATE_PATIENTS_SERVICE"
 	UpdatePatientsService   = "UPDATE_PATIENTS_SERVICE"
 	DeletePatientsService   = "DELETE_PATIENTS_SERVICE"
-	FindAllPatientsService  = "FIND_ALL_PATIENTS_SERVICE"
 	FindByIdPatientsService = "FIND_ID_PATIENTS_SERVICE"
 )
 
@@ -15,10 +14,6 @@ const (
 	DeletePatientsRepository         = "DELETE_PATIENTS_REPOSITORY"
 	FindAllPatientsRepository        = "FIND_ALL_PATIENTS_REPOSITORY"
 	FindByIdPatientsRepository       = "FIND_ID_PATIENTS_REPOSITORY"
-)
-
-const (
-	FindAllPatientsController = "FIND_ALL_PATIENTS_CONTROLLER"
 )
 
 const (

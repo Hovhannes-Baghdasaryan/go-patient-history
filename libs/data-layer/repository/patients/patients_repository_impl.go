@@ -30,11 +30,12 @@ func InjectPatientsRepositoryImpl(clientDB *ent.Client) *PatientsRepositoryImpl 
 func (repo *PatientsRepositoryImpl) Save(createPatientPayload converter.CreatePatientRequest, providerData PatientProviderData, ctx *gin.Context) (*ent.PatientEntity, error) {
 	result, err := repo.clientDB.PatientEntity.Create().SetName(createPatientPayload.Name).SetSurname(createPatientPayload.Surname).SetPatronymic(createPatientPayload.Patronymic).SetAge(*providerData.Age).SetGender(patiententity.Gender(*providerData.Gender)).SetCountry(providerData.Country).Save(context.Background())
 	if err != nil {
+		logger.LogError(logger.LoggerPayload{FuncName: logconstant.CreatePatientsRepository, Message: err.Error()})
 		webError := exception.Error{
 			Message: err.Error(),
 		}
 		webError.BadRequestException(ctx)
-		return &ent.PatientEntity{}, err
+		return nil, err
 	}
 
 	return result, nil
