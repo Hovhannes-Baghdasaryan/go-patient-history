@@ -1,9 +1,9 @@
 package controller
 
 import (
+	outputresponse "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/converter/response"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/response"
 	"github.com/gin-gonic/gin"
-	outputresponse "go-patient-history/internal/converter/response"
-	"go-patient-history/libs/common/response"
 )
 
 type PatientsController interface {

@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"fmt"
+	logger "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/main"
 	"github.com/gin-gonic/gin"
-	logger "go-patient-history/libs/common/logger/main"
 	"time"
 )
 

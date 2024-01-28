@@ -7,13 +7,13 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/schema"
 	"fmt"
+	dbconfig "github.com/Hovhannes-Baghdasaryan/go-patient-history/config/db"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/ent"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/ent/migrate"
+	envconstant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/environment"
+	logconstant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/logger"
+	logger "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/main"
 	_ "github.com/lib/pq"
-	dbconfig "go-patient-history/config/db"
-	"go-patient-history/ent"
-	"go-patient-history/ent/migrate"
-	envconstant "go-patient-history/libs/common/constant/environment"
-	logconstant "go-patient-history/libs/common/constant/logger"
-	logger "go-patient-history/libs/common/logger/main"
 )
 
 func DatabaseConnection() *ent.Client {

@@ -1,9 +1,9 @@
 package logger
 
 import (
-	config "go-patient-history/config/main"
-	envconstant "go-patient-history/libs/common/constant/environment"
-	"go-patient-history/libs/common/logger/slogpretty"
+	config "github.com/Hovhannes-Baghdasaryan/go-patient-history/config/main"
+	envconstant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/environment"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/slogpretty"
 	"log/slog"
 	"os"
 )

@@ -1,10 +1,10 @@
 package common
 
 import (
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/middleware"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"go-patient-history/libs/common/logger/middleware"
 )
 
 func BaseRouter() *gin.Engine {

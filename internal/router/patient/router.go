@@ -1,12 +1,12 @@
 package router
 
 import (
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/ent"
+	controller "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/controller/patients"
+	services "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/services/patients"
+	repository "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/data-layer/repository/patients"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"go-patient-history/ent"
-	controller "go-patient-history/internal/controller/patients"
-	services "go-patient-history/internal/services/patients"
-	repository "go-patient-history/libs/data-layer/repository/patients"
 )
 
 func InjectPatientRouter(router *gin.Engine, clientDB *ent.Client) **gin.Engine {

@@ -1,11 +1,11 @@
 package repository
 
 import (
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/ent"
+	converter "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/converter/request"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/response"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"go-patient-history/ent"
-	converter "go-patient-history/internal/converter/request"
-	"go-patient-history/libs/common/response"
 )
 
 type PatientsRepository interface {

@@ -6,8 +6,8 @@ import (
 	"entgo.io/ent/entc"
 	"entgo.io/ent/entc/gen"
 	"fmt"
-	constant "go-patient-history/libs/common/constant/logger"
-	logger "go-patient-history/libs/common/logger/main"
+	constant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/logger"
+	logger "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/main"
 )
 
 func main() {

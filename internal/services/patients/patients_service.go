@@ -1,12 +1,12 @@
 package services
 
 import (
+	converter "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/converter/request"
+	resconverter "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/converter/response"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/response"
+	repository "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/data-layer/repository/patients"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	converter "go-patient-history/internal/converter/request"
-	resconverter "go-patient-history/internal/converter/response"
-	"go-patient-history/libs/common/response"
-	repository "go-patient-history/libs/data-layer/repository/patients"
 )
 
 type PatientsService interface {

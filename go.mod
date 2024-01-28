@@ -1,4 +1,4 @@
-module go-patient-history
+module github.com/Hovhannes-Baghdasaryan/go-patient-history
 
 go 1.21
 

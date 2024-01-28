@@ -8,12 +8,12 @@ import (
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql/schema"
 	"fmt"
+	config "github.com/Hovhannes-Baghdasaryan/go-patient-history/config/db"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/ent/migrate"
+	envconstant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/environment"
+	logconstant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/logger"
+	logger "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/main"
 	_ "github.com/lib/pq"
-	config "go-patient-history/config/db"
-	"go-patient-history/ent/migrate"
-	envconstant "go-patient-history/libs/common/constant/environment"
-	logconstant "go-patient-history/libs/common/constant/logger"
-	logger "go-patient-history/libs/common/logger/main"
 	"os"
 )
 

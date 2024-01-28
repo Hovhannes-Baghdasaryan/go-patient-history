@@ -1,18 +1,18 @@
 package services
 
 import (
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/ent"
+	reqconvert "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/converter/request"
+	resconverter "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/converter/response"
+	providers "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/providers/patients"
+	logconstant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/logger"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/exception"
+	logger "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/main"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/response"
+	repository "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/data-layer/repository/patients"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
-	"go-patient-history/ent"
-	reqconvert "go-patient-history/internal/converter/request"
-	resconverter "go-patient-history/internal/converter/response"
-	providers "go-patient-history/internal/providers/patients"
-	logconstant "go-patient-history/libs/common/constant/logger"
-	"go-patient-history/libs/common/exception"
-	logger "go-patient-history/libs/common/logger/main"
-	"go-patient-history/libs/common/response"
-	repository "go-patient-history/libs/data-layer/repository/patients"
 	"sync"
 )
 

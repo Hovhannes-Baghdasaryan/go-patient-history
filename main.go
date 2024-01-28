@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	mainconfig "go-patient-history/config/main"
-	_ "go-patient-history/docs"
-	router "go-patient-history/internal/router/patient"
-	constant "go-patient-history/libs/common/constant/logger"
-	logger "go-patient-history/libs/common/logger/main"
-	common "go-patient-history/libs/common/router"
-	configuration "go-patient-history/libs/data-layer/config/ent"
+	mainconfig "github.com/Hovhannes-Baghdasaryan/go-patient-history/config/main"
+	_ "github.com/Hovhannes-Baghdasaryan/go-patient-history/docs"
+	router "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/router/patient"
+	constant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/logger"
+	logger "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/main"
+	common "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/router"
+	configuration "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/data-layer/config/ent"
 	"log/slog"
 	"net/http"
 )

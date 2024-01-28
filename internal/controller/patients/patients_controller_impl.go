@@ -1,16 +1,16 @@
 package controller
 
 import (
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/config/main"
+	reqconvert "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/converter/request"
+	outputresponse "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/converter/response"
+	services "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/services/patients"
+	logconstant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/logger"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/exception"
+	helper "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/helper/error"
+	logger "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/main"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/response"
 	"github.com/gin-gonic/gin"
-	"go-patient-history/config/main"
-	reqconvert "go-patient-history/internal/converter/request"
-	outputresponse "go-patient-history/internal/converter/response"
-	services "go-patient-history/internal/services/patients"
-	logconstant "go-patient-history/libs/common/constant/logger"
-	"go-patient-history/libs/common/exception"
-	helper "go-patient-history/libs/common/helper/error"
-	logger "go-patient-history/libs/common/logger/main"
-	"go-patient-history/libs/common/response"
 	"net/http"
 	"strconv"
 )

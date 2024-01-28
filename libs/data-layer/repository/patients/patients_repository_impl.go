@@ -3,17 +3,17 @@ package repository
 import (
 	"context"
 	"errors"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/ent"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/ent/patiententity"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/ent/predicate"
+	converter "github.com/Hovhannes-Baghdasaryan/go-patient-history/internal/converter/request"
+	errconstant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/error"
+	logconstant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/logger"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/exception"
+	logger "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/main"
+	"github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/response"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"go-patient-history/ent"
-	"go-patient-history/ent/patiententity"
-	"go-patient-history/ent/predicate"
-	converter "go-patient-history/internal/converter/request"
-	errconstant "go-patient-history/libs/common/constant/error"
-	logconstant "go-patient-history/libs/common/constant/logger"
-	"go-patient-history/libs/common/exception"
-	logger "go-patient-history/libs/common/logger/main"
-	"go-patient-history/libs/common/response"
 )
 
 type PatientsRepositoryImpl struct {

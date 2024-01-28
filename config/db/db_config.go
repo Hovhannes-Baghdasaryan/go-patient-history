@@ -2,10 +2,10 @@ package config
 
 import (
 	"fmt"
+	config "github.com/Hovhannes-Baghdasaryan/go-patient-history/config/main"
+	constant "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/constant/logger"
+	logger "github.com/Hovhannes-Baghdasaryan/go-patient-history/libs/common/logger/main"
 	"github.com/joho/godotenv"
-	config "go-patient-history/config/main"
-	constant "go-patient-history/libs/common/constant/logger"
-	logger "go-patient-history/libs/common/logger/main"
 	"os"
 )
 
