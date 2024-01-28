@@ -158,7 +158,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/converter.UpdatePatientRequest"
+                            "$ref": "#/definitions/converter.BaseUpdatePatientRequest"
                         }
                     }
                 ],
@@ -283,6 +283,26 @@ const docTemplate = `{
                 }
             }
         },
+        "converter.BaseUpdatePatientRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "minLength": 2
+                },
+                "patronymic": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "minLength": 2
+                },
+                "surname": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "minLength": 2
+                }
+            }
+        },
         "converter.CreatePatientRequest": {
             "type": "object",
             "required": [
@@ -303,29 +323,6 @@ const docTemplate = `{
                 "surname": {
                     "type": "string",
                     "maxLength": 15,
-                    "minLength": 2
-                }
-            }
-        },
-        "converter.UpdatePatientRequest": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "minLength": 2
-                },
-                "patronymic": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "minLength": 2
-                },
-                "surname": {
-                    "type": "string",
-                    "maxLength": 200,
                     "minLength": 2
                 }
             }

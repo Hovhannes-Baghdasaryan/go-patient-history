@@ -71,6 +71,21 @@ definitions:
       surname:
         type: string
     type: object
+  converter.BaseUpdatePatientRequest:
+    properties:
+      name:
+        maxLength: 200
+        minLength: 2
+        type: string
+      patronymic:
+        maxLength: 15
+        minLength: 2
+        type: string
+      surname:
+        maxLength: 200
+        minLength: 2
+        type: string
+    type: object
   converter.CreatePatientRequest:
     properties:
       name:
@@ -88,23 +103,6 @@ definitions:
     required:
     - name
     - surname
-    type: object
-  converter.UpdatePatientRequest:
-    properties:
-      id:
-        type: string
-      name:
-        maxLength: 200
-        minLength: 2
-        type: string
-      patronymic:
-        maxLength: 15
-        minLength: 2
-        type: string
-      surname:
-        maxLength: 200
-        minLength: 2
-        type: string
     type: object
   response.Pagination:
     properties:
@@ -269,7 +267,7 @@ paths:
         name: patient
         required: true
         schema:
-          $ref: '#/definitions/converter.UpdatePatientRequest'
+          $ref: '#/definitions/converter.BaseUpdatePatientRequest'
       produces:
       - application/json
       responses:
