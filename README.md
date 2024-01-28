@@ -9,9 +9,6 @@
 
 #### Create local.env and start the application
 
-#### Generate ent ORM dependencies
-```go generate ./...```
-
 #### Install atlas cli on linux to be able execute migrations 
 ```curl -sSf https://atlasgo.sh | sh```
 
@@ -24,4 +21,4 @@
 ## API Docs
 [Swagger](http://localhost:8080/docs/index.html)
 
-![assets/img.png](assets/img.png)
+![Swagger Preview](https://fv5-3.failiem.lv/thumb_show.php?i=pvxkg5akye&view&v=1)
