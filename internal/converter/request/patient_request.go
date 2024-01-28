@@ -10,9 +10,13 @@ type CreatePatientRequest struct {
 	Patronymic string `validate:"omitempty,min=2,max=15" json:"patronymic"`
 }
 
+type BaseUpdatePatientRequest struct {
+	Name       *string `validate:"max=200,min=2" json:"name,omitempty"`
+	Surname    *string `validate:"max=200,min=2" json:"surname,omitempty"`
+	Patronymic *string `validate:"min=2,max=15" json:"patronymic,omitempty"`
+}
+
 type UpdatePatientRequest struct {
-	Id         uuid.UUID `json:"id,omitempty"`
-	Name       *string   `validate:"max=200,min=2" json:"name,omitempty"`
-	Surname    *string   `validate:"max=200,min=2" json:"surname,omitempty"`
-	Patronymic *string   `validate:"min=2,max=15" json:"patronymic,omitempty"`
+	Id uuid.UUID `json:"id,omitempty"`
+	BaseUpdatePatientRequest
 }

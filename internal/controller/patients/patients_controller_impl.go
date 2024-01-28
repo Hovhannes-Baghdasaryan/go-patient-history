@@ -65,7 +65,7 @@ func (controller PatientsControllerImpl) Create(ctx *gin.Context) {
 // UpdatePatient		godoc
 // @Summary				Update Patient
 // @Param				patientId path string true "update patient by id"
-// @Param				patient body reqconvert.UpdatePatientRequest true "Create Patient"
+// @Param				patient body reqconvert.BaseUpdatePatientRequest true "Create Patient"
 // @Produce				application/json
 // @Tags				Patients
 // @Success				200 {object} response.Response[UpdateSinglePatientOutputResponse]
