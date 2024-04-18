@@ -20,7 +20,7 @@ import (
 func main() {
 	ctx := context.Background()
 	// Create a local migration directory able to understand Atlas migration file format for replay.
-	if err := os.MkdirAll(dir, 0755); err != nil {
+	if err := os.MkdirAll(envconstant.MigrationDir, 0755); err != nil {
 		logger.LogError(logger.LoggerPayload{FuncName: logconstant.MigrationMain, Message: fmt.Sprintf("Creating migration directory: %v", err.Error())})
 	}
 
@@ -43,7 +43,7 @@ func main() {
 	cfg := config.DBConfigLoad()
 
 	// Generate migrations using Atlas support for MySQL (note the Ent dialect option passed above).
-	err = migrate.NamedDiff(ctx, fmt.Sprintf("postgres://%s:%s@%s:%s/%s", cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DBName), os.Args[1], opts...)
+	err = migrate.NamedDiff(ctx, fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s", cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DBName, cfg.SslMode), os.Args[1], opts...)
 	if err != nil {
 		logger.LogError(logger.LoggerPayload{FuncName: logconstant.MigrationMain, Message: fmt.Sprintf("Failed generating migration file: %v", err)})
 	}
