@@ -18,3 +18,6 @@ status:
 
 diff:
 	atlas migrate diff $(name) --dir "file://ent/migrate/migrations" --to "ent://ent/schema" --dev-url "docker://postgres/15/dev?search_path=public"
+
+push:
+	atlas migrate push test-golang --dir "file://ent/migrate/migrations"  --dev-url "docker://postgres/15/dev?search_path=public"
