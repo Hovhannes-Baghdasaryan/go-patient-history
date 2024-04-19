@@ -1,6 +1,8 @@
 name: Migration Lint CI
 on:
   pull_request:
+    branches:
+      - main
     paths:
       - 'ent/migrate/migrations/*'
 # Permissions to write comments on the pull request.
