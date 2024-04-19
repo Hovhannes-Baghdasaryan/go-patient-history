@@ -1,13 +1,10 @@
-name: Atlas
+name: Migration Push CI
 on:
   push:
     branches:
       - main
     paths:
       - .github/workflows/ci-atlas.yaml
-      - 'ent/migrate/migrations/*'
-  pull_request:
-    paths:
       - 'ent/migrate/migrations/*'
 # Permissions to write comments on the pull request.
 permissions:
