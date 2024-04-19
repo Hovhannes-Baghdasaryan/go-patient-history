@@ -1,24 +1,21 @@
 name: Migration CI
 on:
-  push:
-    branches:
-      - main
   pull_request:
     paths:
       - '*'
 jobs:
   lint:
     services:
-      # Spin up a mysql:8.0.29 container to be used as the dev-database for analysis.
-      mysql:
-        image: mysql:8.0.29
+      postgres:
+        image: postgres:latest
         env:
-          MYSQL_ROOT_PASSWORD: pass
-          MYSQL_DATABASE: dev
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pass
+          POSTGRES_DB: dev
         ports:
-          - "3306:3306"
+          - "5432:5432"
         options: >-
-          --health-cmd "mysqladmin ping -ppass"
+          --health-cmd "pg_isready -U postgres"
           --health-interval 10s
           --health-start-period 10s
           --health-timeout 5s
@@ -27,8 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3.0.1
         with:
-          fetch-depth: 0 # Mandatory unless "latest" is set below.
-      - uses: ariga/atlas-action@v1
+          fetch-depth: 0
+      - uses: ariga/atlas-action@v1.0.9
         with:
           dir: ent/migrate/migrations
-          dev-url: mysql://root:pass@localhost:3306/dev
+          dev-url: postgresql://postgres:pass@localhost:5432/dev
