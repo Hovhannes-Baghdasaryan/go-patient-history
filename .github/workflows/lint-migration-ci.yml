@@ -2,7 +2,7 @@ name: Migration CI
 on:
   pull_request:
     paths:
-      - '*'
+      - '/asd/asdads/'
 jobs:
   lint:
     services:
