@@ -23,7 +23,7 @@ func (PatientEntity) Fields() []ent.Field {
 		field.String("patronymic").Nillable(),
 		field.Int("age").Positive().Max(100),
 		field.Enum("gender").Values("male", "female"),
-		field.String("country").Optional(),
+		field.String("country"),
 	}
 }
 
