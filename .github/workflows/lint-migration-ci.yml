@@ -28,4 +28,4 @@ jobs:
       - uses: ariga/atlas-action@v1.0.9
         with:
           dir: ent/migrate/migrations
-          dev-url: postgresql://postgres:pass@localhost:5432/dev
+          dev-url: postgresql://postgres:pass@localhost:5432/dev?sslmode=disable
