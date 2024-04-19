@@ -42,7 +42,7 @@ func main() {
 
 	cfg := config.DBConfigLoad()
 
-	// Generate migrations using Atlas support for MySQL (note the Ent dialect option passed above).
+	// Generate migrations using Atlas support for Postgres (note the Ent dialect option passed above).
 	err = migrate.NamedDiff(ctx, fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s", cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DBName, cfg.SslMode), os.Args[1], opts...)
 	if err != nil {
 		logger.LogError(logger.LoggerPayload{FuncName: logconstant.MigrationMain, Message: fmt.Sprintf("Failed generating migration file: %v", err)})
