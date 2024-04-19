@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - .github/workflows/ci-atlas.yaml
+      - .github/workflows/lint-migration-ci.yaml
       - 'ent/migrate/migrations/*'
 # Permissions to write comments on the pull request.
 permissions:
