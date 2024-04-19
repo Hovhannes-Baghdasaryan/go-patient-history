@@ -24,7 +24,7 @@ func (PatientEntity) Fields() []ent.Field {
 		field.Int("age").Positive().Max(100),
 		field.Enum("gender").Values("male", "female"),
 		field.String("country"),
-		field.String("title"),
+		field.String("title").Optional(),
 	}
 }
 
